@@ -1,0 +1,40 @@
+<div class="card mb-3">
+    <h3 class="card-header">Commande</h3>
+    <div class="card-body">
+        <table class="table table-hover">
+            {% if total > 0  %}
+                <thead>
+                <tr>
+                    <th scope="col">Pizza</th>
+                    <th scope="col">Quantité</th>
+                    <th scope="col">Prix</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart  %}
+                        <tr class="table-active">
+                            <th scope="row">{{ item.product.name }}</th>
+                            <td>
+                                <a href="{{ path('app_cart_sub', {'id': item.product.id}) }}"><span class="badge rounded-pill bg-success">-</span></a>
+                                <span class="badge rounded-pill bg-secondary">{{ item.quantity }}</span>
+                                <a href="{{ path('app_cart_add', {'id': item.product.id}) }}"><span class="badge rounded-pill bg-success">+</span></a>
+                                <a href="{{ path('app_cart_delete', {'id': item.product.id}) }}"><span class="badge rounded-pill bg-danger">🗑️</span></a>
+                            </td>
+                            <td>{{ item.product.price * item.quantity /100 }} €</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th scope="col" colspan="2">Total</th>
+                    <th scope="col">{{ total}} €</th>
+                </tr>
+                </tfoot>
+            {% else %}
+                <p>Aucun produit au panier.</p>
+            {% endif %}
+        </table>
+        <p><button class="btn btn-success">Commander</button></p>
+        <p><a href="{{ path('app_cart_empty')}}">Vider votre panier</a></p>
+    </div>
+</div>
